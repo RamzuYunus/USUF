@@ -1,0 +1,108 @@
+Build a modern, responsive cryptocurrency landing website called USUF – United Stored Unitized Food that explains the USF (Unitized Stored Food) Token and includes token sale functionality. Attached is the USUF logo and the gold token images.
+
+Requirements if possible:
+
+1. Tech Stack
+
+Frontend: React (with Vite or Next.js)
+
+Styling: TailwindCSS (clean, professional, bright theme matching logo colors)
+
+Backend: Node.js + Express
+
+Database: Simple JSON storage or PostgreSQL
+
+Wallet Integration: MetaMask (Web3.js or Ethers.js)
+
+2. Pages / Sections
+
+Homepage
+
+Hero section with USUF logo and  gold token logo
+
+Headline: “USF – Asset-Backed Food Reserve Token”
+
+Subheading: “1 USF = 1 KG Basket Food Value”
+
+Call-to-action buttons:
+
+“Buy USF Tokens”
+
+“Read Whitepaper”
+
+About USUF
+
+Explain  United Stored Unitized Food which is an Agricultural Reserve Treasury based in Egypt that produces, stores, and digitally unitizes agricultural commodities into fully-backed tokens representing physical food reserves.
+The system functions as:
+A national food buffer
+A transparent agricultural treasury
+A Pan-African trade instrument
+A humanitarian stabilization mechanism
+Each digital unit represents verified stored food value, redeemable and audited, ensuring real asset backing.
+USUF aims to:
+Secure Egypt’s food base
+Expand desert agriculture
+Support African nations via fair trade and humanitarian assistance
+Create a non-speculative, tangible-backed reserve model
+
+Mission: Asset-backed digital token supported by food reserves
+
+Transparency & storage model
+
+About USF Token
+
+What is USF?
+
+Asset-backed structure
+
+1 Token = 1kg basket food value
+
+Total supply
+
+Smart contract info
+
+Roadmap section
+
+Token Sale Page
+
+Connect Wallet button
+
+Show:
+
+Current token price
+
+Amount available
+
+User wallet balance
+
+Input field: Enter amount to purchase
+
+“Buy Now” button
+
+Simulated smart contract purchase function
+
+Confirmation modal after purchase
+
+3. Design Style
+
+Premium  bright theme matching logo colors
+
+Professional finance look
+
+3D token image centered
+
+Clean typography
+
+Subtle animations
+
+Mobile responsive
+
+4. Extra Features
+
+Countdown timer for token sale
+
+FAQ section
+
+Contact form
+
+Admin dashboard (basic) to update token price and supply
