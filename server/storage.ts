@@ -1,38 +1,64 @@
-import { type User, type InsertUser } from "@shared/schema";
-import { randomUUID } from "crypto";
-
-// modify the interface with any CRUD methods
-// you might need
+import { db } from "./db";
+import {
+  tokenConfig,
+  purchases,
+  type TokenConfig,
+  type UpdateTokenConfigRequest,
+  type Purchase,
+  type InsertPurchase
+} from "@shared/schema";
+import { eq, desc } from "drizzle-orm";
 
 export interface IStorage {
-  getUser(id: string): Promise<User | undefined>;
-  getUserByUsername(username: string): Promise<User | undefined>;
-  createUser(user: InsertUser): Promise<User>;
+  getTokenConfig(): Promise<TokenConfig | undefined>;
+  updateTokenConfig(updates: UpdateTokenConfigRequest): Promise<TokenConfig>;
+  createPurchase(purchase: InsertPurchase): Promise<Purchase>;
+  getPurchases(): Promise<Purchase[]>;
 }
 
-export class MemStorage implements IStorage {
-  private users: Map<string, User>;
-
-  constructor() {
-    this.users = new Map();
+export class DatabaseStorage implements IStorage {
+  async getTokenConfig(): Promise<TokenConfig | undefined> {
+    const [config] = await db.select().from(tokenConfig).limit(1);
+    return config;
   }
 
-  async getUser(id: string): Promise<User | undefined> {
-    return this.users.get(id);
+  async updateTokenConfig(updates: UpdateTokenConfigRequest): Promise<TokenConfig> {
+    const existing = await this.getTokenConfig();
+    if (!existing) {
+      const [newConfig] = await db.insert(tokenConfig).values({
+        price: updates.price ?? "1.00",
+        totalSupply: updates.totalSupply ?? "1000000",
+        availableSupply: updates.availableSupply ?? "1000000",
+      }).returning();
+      return newConfig;
+    }
+
+    const [updated] = await db.update(tokenConfig)
+      .set(updates)
+      .where(eq(tokenConfig.id, existing.id))
+      .returning();
+    return updated;
   }
 
-  async getUserByUsername(username: string): Promise<User | undefined> {
-    return Array.from(this.users.values()).find(
-      (user) => user.username === username,
-    );
+  async createPurchase(purchase: InsertPurchase): Promise<Purchase> {
+    const [newPurchase] = await db.insert(purchases).values(purchase).returning();
+    
+    // Update available supply
+    const config = await this.getTokenConfig();
+    if (config) {
+      const currentSupply = parseFloat(config.availableSupply);
+      const purchasedAmount = parseFloat(purchase.amount);
+      const newSupply = Math.max(0, currentSupply - purchasedAmount).toString();
+      
+      await this.updateTokenConfig({ availableSupply: newSupply });
+    }
+    
+    return newPurchase;
   }
 
-  async createUser(insertUser: InsertUser): Promise<User> {
-    const id = randomUUID();
-    const user: User = { ...insertUser, id };
-    this.users.set(id, user);
-    return user;
+  async getPurchases(): Promise<Purchase[]> {
+    return await db.select().from(purchases).orderBy(desc(purchases.createdAt));
   }
 }
 
-export const storage = new MemStorage();
+export const storage = new DatabaseStorage();
