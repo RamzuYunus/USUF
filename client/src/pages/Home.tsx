@@ -143,23 +143,39 @@ export default function Home() {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
-              className="relative"
+              className="relative flex justify-center lg:justify-end"
             >
-              <div className="aspect-square rounded-3xl overflow-hidden shadow-2xl relative z-10">
-                <img 
-                  src={GoldToken} 
-                  alt="Agricultural Reserve" 
-                  className="w-full h-full object-cover scale-110 hover:scale-100 transition-transform duration-700"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
-                <div className="absolute bottom-8 left-8 right-8 text-white">
-                  <p className="text-sm font-semibold uppercase tracking-wider text-primary mb-2">Egypt's Treasury</p>
-                  <p className="text-2xl font-bold font-display">Securing the Future of Food</p>
+              <div className="w-full max-w-md p-8 bg-gradient-to-br from-primary/5 to-accent/5 rounded-3xl border border-primary/10">
+                <div className="space-y-6">
+                  <div className="flex items-center gap-4">
+                    <div className="w-12 h-12 rounded-xl bg-primary/20 flex items-center justify-center text-primary">
+                      <Shield className="w-6 h-6" />
+                    </div>
+                    <div>
+                      <h4 className="font-bold text-foreground">Verified Reserves</h4>
+                      <p className="text-sm text-muted-foreground">Audited monthly</p>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-4">
+                    <div className="w-12 h-12 rounded-xl bg-accent/20 flex items-center justify-center text-accent">
+                      <Leaf className="w-6 h-6" />
+                    </div>
+                    <div>
+                      <h4 className="font-bold text-foreground">Sustainable</h4>
+                      <p className="text-sm text-muted-foreground">Desert Greening</p>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-4">
+                    <div className="w-12 h-12 rounded-xl bg-blue-500/20 flex items-center justify-center text-blue-600">
+                      <Globe className="w-6 h-6" />
+                    </div>
+                    <div>
+                      <h4 className="font-bold text-foreground">Global Impact</h4>
+                      <p className="text-sm text-muted-foreground">Humanitarian Aid</p>
+                    </div>
+                  </div>
                 </div>
               </div>
-              {/* Decorative elements */}
-              <div className="absolute -top-6 -right-6 w-32 h-32 bg-primary/20 rounded-full blur-2xl -z-10" />
-              <div className="absolute -bottom-6 -left-6 w-32 h-32 bg-accent/20 rounded-full blur-2xl -z-10" />
             </motion.div>
           </div>
         </div>
