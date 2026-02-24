@@ -82,6 +82,89 @@ export default function Home() {
         </div>
       </section>
 
+      {/* About USUF Section */}
+      <section id="about-usuf" className="py-24 bg-slate-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid lg:grid-cols-2 gap-16 items-center">
+            <motion.div
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+              className="space-y-6"
+            >
+              <h2 className="text-3xl md:text-4xl font-display font-bold text-foreground">
+                About USUF
+              </h2>
+              <p className="text-lg text-muted-foreground leading-relaxed">
+                United Stored Unitized Food (USUF) is an Agricultural Reserve Treasury based in Egypt that produces, stores, and digitally unitizes agricultural commodities into fully-backed tokens representing physical food reserves.
+              </p>
+              
+              <div className="space-y-4">
+                <h3 className="text-xl font-bold font-display text-foreground">The system functions as:</h3>
+                <ul className="grid sm:grid-cols-2 gap-4">
+                  {[
+                    "A national food buffer",
+                    "A transparent agricultural treasury",
+                    "A global trade instrument",
+                    "A humanitarian stabilization mechanism"
+                  ].map((item, i) => (
+                    <li key={i} className="flex items-start gap-3 text-muted-foreground">
+                      <div className="mt-1.5 w-1.5 h-1.5 rounded-full bg-accent shrink-0" />
+                      <span>{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              <p className="text-muted-foreground italic border-l-4 border-primary pl-4">
+                Each digital unit represents verified stored food value, redeemable and audited, ensuring real asset backing.
+              </p>
+
+              <div className="space-y-4 pt-4">
+                <h3 className="text-xl font-bold font-display text-foreground">USUF aims to:</h3>
+                <ul className="space-y-3">
+                  {[
+                    "Secure Egypt’s and the global food base",
+                    "Expand desert agriculture and greening of the desert",
+                    "Support African nations via fair trade and humanitarian assistance"
+                  ].map((aim, i) => (
+                    <li key={i} className="flex items-center gap-3 text-muted-foreground">
+                      <Shield className="w-5 h-5 text-primary shrink-0" />
+                      <span>{aim}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, x: 20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+              className="relative"
+            >
+              <div className="aspect-square rounded-3xl overflow-hidden shadow-2xl relative z-10">
+                <img 
+                  src={GoldToken} 
+                  alt="Agricultural Reserve" 
+                  className="w-full h-full object-cover scale-110 hover:scale-100 transition-transform duration-700"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+                <div className="absolute bottom-8 left-8 right-8 text-white">
+                  <p className="text-sm font-semibold uppercase tracking-wider text-primary mb-2">Egypt's Treasury</p>
+                  <p className="text-2xl font-bold font-display">Securing the Future of Food</p>
+                </div>
+              </div>
+              {/* Decorative elements */}
+              <div className="absolute -top-6 -right-6 w-32 h-32 bg-primary/20 rounded-full blur-2xl -z-10" />
+              <div className="absolute -bottom-6 -left-6 w-32 h-32 bg-accent/20 rounded-full blur-2xl -z-10" />
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
       {/* Features Grid */}
       <section id="about" className="py-24 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
