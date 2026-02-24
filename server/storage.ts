@@ -48,7 +48,7 @@ export class DatabaseStorage implements IStorage {
     if (config) {
       const currentSupply = parseFloat(config.availableSupply);
       const purchasedAmount = parseFloat(purchase.amount);
-      const newSupply = Math.max(0, currentSupply - purchasedAmount).toString();
+      const newSupply = Math.max(0, currentSupply - purchasedAmount).toFixed(4); // Use toFixed(4)
       
       await this.updateTokenConfig({ availableSupply: newSupply });
     }

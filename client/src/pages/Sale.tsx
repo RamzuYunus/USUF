@@ -8,7 +8,7 @@ import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import GoldToken from "@assets/gold_token_1771929546171.png";
-import { Loader2, ArrowRightLeft, CheckCircle2 } from "lucide-react";
+import { ShieldCheck, Loader2, ArrowRightLeft, CheckCircle2 } from "lucide-react";
 import { motion } from "framer-motion";
 
 export default function Sale() {
