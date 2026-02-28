@@ -3,21 +3,20 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { motion } from "framer-motion";
 import GoldToken from "@assets/gold_token_1771929546171.png";
-import { Leaf, Shield, LineChart, Globe, ArrowRight } from "lucide-react";
+import USUFLogo from "@assets/USUF_logo_1772280201289.png";
+import { Leaf, Shield, LineChart, Globe, ArrowRight, Heart, Users, Target } from "lucide-react";
 
 export default function Home() {
   return (
     <div className="flex flex-col min-h-screen">
-      {/* Hero Section */}
+      {/* Hero Section - Focused on Mission */}
       <section className="relative pt-20 pb-32 overflow-hidden">
-        {/* Background Gradients */}
         <div className="absolute top-0 inset-x-0 h-full bg-gradient-to-b from-primary/10 to-transparent -z-10" />
         <div className="absolute -top-40 -right-40 w-96 h-96 bg-primary/20 blur-3xl rounded-full mix-blend-multiply -z-10 opacity-70" />
         <div className="absolute top-20 -left-20 w-72 h-72 bg-accent/20 blur-3xl rounded-full mix-blend-multiply -z-10 opacity-70" />
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
-            
             <motion.div 
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -25,34 +24,30 @@ export default function Home() {
               className="space-y-8"
             >
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white border border-primary/20 text-primary text-sm font-semibold shadow-sm">
-                <span className="relative flex h-2 w-2">
-                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
-                  <span className="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
-                </span>
-                Public Sale is Live
+                <Heart className="w-4 h-4 text-red-500 animate-pulse" />
+                Humanitarian Mission First
               </div>
               
               <h1 className="text-5xl sm:text-6xl lg:text-7xl font-display font-extrabold leading-[1.1]">
-                <span className="text-foreground">Asset-Backed</span><br/>
-                <span className="text-gradient-gold">Food Reserve</span><br/>
-                <span className="text-foreground">Token</span>
+                <span className="text-foreground">Securing the World's</span><br/>
+                <span className="text-gradient-gold">Food Future</span><br/>
+                <span className="text-foreground">Today</span>
               </h1>
               
               <p className="text-xl text-muted-foreground max-w-lg leading-relaxed">
-                The world's first cryptocurrency strictly pegged to real-world agricultural assets. <br/>
-                <strong className="text-foreground font-semibold">1 USF = 1 KG Basket Food Value</strong>
+                United Stored Unitized Food (USUF) is an Egyptian Agricultural Treasury dedicated to global food security through innovative asset-backed unitization.
               </p>
               
               <div className="flex flex-col sm:flex-row gap-4 pt-4">
                 <Button asChild size="lg" className="h-14 px-8 rounded-full bg-primary text-primary-foreground hover:bg-primary/90 text-lg font-bold shadow-xl shadow-primary/20 hover:-translate-y-1 transition-all">
-                  <Link href="/sale">
-                    Buy USF Tokens <ArrowRight className="ml-2 w-5 h-5" />
-                  </Link>
+                  <a href="#about-usuf">
+                    Our Mission <ArrowRight className="ml-2 w-5 h-5" />
+                  </a>
                 </Button>
                 <Button asChild variant="outline" size="lg" className="h-14 px-8 rounded-full bg-white/50 backdrop-blur-sm border-2 text-lg font-semibold hover:bg-white hover:-translate-y-1 transition-all">
-                  <a href="#about">
-                    Read Whitepaper
-                  </a>
+                  <Link href="/sale">
+                    View USF Token
+                  </Link>
                 </Button>
               </div>
             </motion.div>
@@ -63,19 +58,108 @@ export default function Home() {
               transition={{ duration: 0.8, delay: 0.2 }}
               className="relative flex justify-center"
             >
-              <div className="relative w-full max-w-md">
-                {/* Floating animation for token */}
-                <motion.div
-                  animate={{ y: [0, -20, 0] }}
-                  transition={{ repeat: Infinity, duration: 4, ease: "easeInOut" }}
-                >
-                  <img 
-                    src={GoldToken} 
-                    alt="USF Gold Token" 
-                    className="w-full h-auto drop-shadow-2xl filter"
-                    style={{ filter: "drop-shadow(0 25px 25px rgba(245, 176, 17, 0.25))" }}
-                  />
-                </motion.div>
+              <div className="relative w-full max-w-md aspect-square rounded-full bg-white/10 backdrop-blur-3xl flex items-center justify-center p-12 border border-white/20 shadow-2xl">
+                <img 
+                  src={USUFLogo} 
+                  alt="USUF Logo" 
+                  className="w-full h-auto drop-shadow-2xl"
+                />
+              </div>
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
+      {/* Mission Deep Dive */}
+      <section id="mission-values" className="py-24 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center max-w-3xl mx-auto mb-16 space-y-4">
+            <h2 className="text-3xl md:text-4xl font-display font-bold text-foreground">
+              Our Humanitarian Commitment
+            </h2>
+            <p className="text-lg text-muted-foreground">
+              We leverage Egypt's agricultural potential to create a stable, transparent, and resilient food reserve for the entire world.
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-8">
+            <Card className="border-none shadow-none bg-transparent">
+              <CardContent className="p-0 space-y-4">
+                <div className="w-16 h-16 rounded-2xl bg-blue-50 flex items-center justify-center text-blue-600">
+                  <Users className="w-8 h-8" />
+                </div>
+                <h3 className="text-2xl font-bold font-display">Egypt & Africa</h3>
+                <p className="text-muted-foreground leading-relaxed">
+                  Supporting African nations through fair trade and humanitarian assistance, securing the continent's food base from Cairo.
+                </p>
+              </CardContent>
+            </Card>
+            <Card className="border-none shadow-none bg-transparent">
+              <CardContent className="p-0 space-y-4">
+                <div className="w-16 h-16 rounded-2xl bg-green-50 flex items-center justify-center text-green-600">
+                  <Leaf className="w-8 h-8" />
+                </div>
+                <h3 className="text-2xl font-bold font-display">Desert Greening</h3>
+                <p className="text-muted-foreground leading-relaxed">
+                  Transforming arid landscapes into productive agricultural hubs through sustainable desert farming and modern technology.
+                </p>
+              </CardContent>
+            </Card>
+            <Card className="border-none shadow-none bg-transparent">
+              <CardContent className="p-0 space-y-4">
+                <div className="w-16 h-16 rounded-2xl bg-amber-50 flex items-center justify-center text-amber-600">
+                  <Target className="w-8 h-8" />
+                </div>
+                <h3 className="text-2xl font-bold font-display">Global Stability</h3>
+                <p className="text-muted-foreground leading-relaxed">
+                  Functioning as a humanitarian stabilization mechanism to combat food price volatility on a global scale.
+                </p>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+      </section>
+
+      {/* Token as a Tool for Mission */}
+      <section className="py-24 bg-slate-50 border-y border-slate-200">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid lg:grid-cols-2 gap-16 items-center">
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              className="order-2 lg:order-1"
+            >
+              <img src={GoldToken} alt="USF Token" className="w-full max-w-sm mx-auto drop-shadow-2xl" />
+            </motion.div>
+            
+            <motion.div
+              initial={{ opacity: 0, x: 20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              className="space-y-6 order-1 lg:order-2"
+            >
+              <h2 className="text-3xl md:text-4xl font-display font-bold text-foreground">
+                The USF Token: Unitizing Food Security
+              </h2>
+              <p className="text-lg text-muted-foreground leading-relaxed">
+                The USF token is the digital representation of our physical reserves. Every token is backed by actual food assets in our treasury.
+              </p>
+              
+              <div className="space-y-4">
+                <div className="flex items-center gap-4 p-4 bg-white rounded-xl border border-slate-100 shadow-sm">
+                  <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center text-primary font-bold">1:1</div>
+                  <p className="font-semibold text-foreground">1 USF = 1 KG Basket Food Value</p>
+                </div>
+                <p className="text-muted-foreground">
+                  By participating in the USF ecosystem, you are directly supporting the expansion of agricultural reserves and the greening of the desert.
+                </p>
+              </div>
+
+              <div className="pt-4">
+                <Button asChild size="lg" className="rounded-full bg-secondary text-secondary-foreground hover:bg-secondary/90 px-10">
+                  <Link href="/sale">Participate in Presale</Link>
+                </Button>
               </div>
             </motion.div>
           </div>
@@ -83,7 +167,7 @@ export default function Home() {
       </section>
 
       {/* About USUF Section */}
-      <section id="about-usuf" className="py-24 bg-slate-50">
+      <section id="about-usuf" className="py-24 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-16 items-center">
             <motion.div
@@ -216,7 +300,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Roadmap Section (Simplified) */}
+      {/* Roadmap Section */}
       <section id="roadmap" className="py-24 bg-secondary text-secondary-foreground">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">

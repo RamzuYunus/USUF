@@ -29,6 +29,7 @@ export class DatabaseStorage implements IStorage {
         price: updates.price ?? "1.00",
         totalSupply: updates.totalSupply ?? "1000000",
         availableSupply: updates.availableSupply ?? "1000000",
+        externalSaleUrl: updates.externalSaleUrl ?? null,
       }).returning();
       return newConfig;
     }

@@ -8,7 +8,7 @@ import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import GoldToken from "@assets/gold_token_1771929546171.png";
-import { ShieldCheck, Loader2, ArrowRightLeft, CheckCircle2 } from "lucide-react";
+import { ShieldCheck, Loader2, ArrowRightLeft, CheckCircle2, CreditCard, ExternalLink } from "lucide-react";
 import { motion } from "framer-motion";
 
 export default function Sale() {
@@ -109,6 +109,22 @@ export default function Sale() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.1 }}
         >
+          {config?.externalSaleUrl && (
+            <Card className="mb-6 border-primary/20 bg-primary/5">
+              <CardContent className="p-4 flex items-center justify-between">
+                <div className="flex items-center gap-3">
+                  <ExternalLink className="w-5 h-5 text-primary" />
+                  <span className="text-sm font-semibold">Official Sale Platform</span>
+                </div>
+                <Button variant="link" asChild className="text-primary font-bold">
+                  <a href={config.externalSaleUrl} target="_blank" rel="noopener noreferrer">
+                    Visit Official Sale
+                  </a>
+                </Button>
+              </CardContent>
+            </Card>
+          )}
+
           <Card className="glass-card border-t-4 border-t-primary">
             <CardHeader className="pb-4">
               <CardTitle className="text-2xl font-display">Purchase Tokens</CardTitle>
@@ -181,6 +197,17 @@ export default function Sale() {
                       "Complete Purchase"
                     )}
                   </Button>
+                  <div className="pt-4 border-t border-border/50">
+                    <p className="text-sm text-center text-muted-foreground mb-4">Or pay with PayPal / Credit Card</p>
+                    <Button 
+                      variant="outline"
+                      className="w-full h-12 border-blue-200 bg-blue-50 text-blue-700 hover:bg-blue-100 font-bold"
+                      onClick={() => window.open('https://www.paypal.com/checkoutnow', '_blank')}
+                    >
+                      <CreditCard className="w-4 h-4 mr-2" />
+                      Pay with PayPal
+                    </Button>
+                  </div>
                 </>
               )}
             </CardContent>

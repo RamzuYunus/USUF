@@ -7,6 +7,7 @@ export const tokenConfig = pgTable("token_config", {
   price: numeric("price").notNull(), // String representation of decimal
   totalSupply: numeric("total_supply").notNull(),
   availableSupply: numeric("available_supply").notNull(),
+  externalSaleUrl: text("external_sale_url"),
 });
 
 export const purchases = pgTable("purchases", {

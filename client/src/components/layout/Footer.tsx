@@ -1,5 +1,5 @@
 import { Link } from "wouter";
-import USUFLogo from "@assets/USUF_logo_1771929546171.png";
+import USUFLogo from "@assets/USUF_logo_1772280201289.png";
 import { Twitter, Github, MessageCircle } from "lucide-react";
 
 export function Footer() {

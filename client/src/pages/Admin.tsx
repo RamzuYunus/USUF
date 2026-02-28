@@ -18,6 +18,7 @@ const formSchema = z.object({
   price: z.coerce.number().min(0.0001, "Price must be positive").transform(String),
   totalSupply: z.coerce.number().min(1, "Supply must be positive").transform(String),
   availableSupply: z.coerce.number().min(0, "Available cannot be negative").transform(String),
+  externalSaleUrl: z.string().url("Must be a valid URL").optional().or(z.literal("")),
 });
 
 type FormValues = z.infer<typeof formSchema>;
@@ -43,6 +44,7 @@ export default function Admin() {
         price: config.price,
         totalSupply: config.totalSupply,
         availableSupply: config.availableSupply,
+        externalSaleUrl: config.externalSaleUrl || "",
       });
     }
   }, [config, form]);
@@ -148,6 +150,19 @@ export default function Admin() {
                         <FormLabel>Available Supply</FormLabel>
                         <FormControl>
                           <Input type="number" {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name="externalSaleUrl"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>External Sale URL</FormLabel>
+                        <FormControl>
+                          <Input placeholder="https://..." {...field} />
                         </FormControl>
                         <FormMessage />
                       </FormItem>

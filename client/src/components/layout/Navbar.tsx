@@ -2,7 +2,7 @@ import { Link, useLocation } from "wouter";
 import { useWallet } from "@/hooks/use-wallet";
 import { Button } from "@/components/ui/button";
 import { Wallet, Menu, ShieldCheck } from "lucide-react";
-import USUFLogo from "@assets/USUF_logo_1771929546171.png";
+import USUFLogo from "@assets/USUF_logo_1772280201289.png";
 import { useState } from "react";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 
