@@ -2,7 +2,7 @@ import { Link } from "wouter";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { motion } from "framer-motion";
-import GoldToken from "@assets/gold_token_1771929546171.png";
+import GoldToken from "@assets/gold_token_1772291570860.png";
 import USUFLogo from "@assets/USUF_logo_1772280201289.png";
 import WatermelonField from "@assets/IMG_20260224_161928_1772281049829.jpg";
 import CantaloupeField from "@assets/IMG_20260221_162752_1772281049862.jpg";
@@ -48,7 +48,7 @@ export default function Home() {
                 </Button>
                 <Button asChild variant="outline" size="lg" className="h-14 px-8 rounded-full bg-white/50 backdrop-blur-sm border-2 text-lg font-semibold hover:bg-white hover:-translate-y-1 transition-all">
                   <Link href="/sale">
-                    View USF Token
+                    View USUF Token
                   </Link>
                 </Button>
               </div>
@@ -152,7 +152,7 @@ export default function Home() {
                     <h4 className="font-bold text-lg">Expansion Roadmap</h4>
                   </div>
                   <p className="text-muted-foreground">
-                    We are on track to expand to <strong className="text-foreground">10,000 acres</strong> this season. With the success of the USF token sale, we aim to scale even further, accelerating the greening of the desert and global food security.
+                    We are on track to expand to <strong className="text-foreground">10,000 acres</strong> this season. With the success of the USUF token sale, we aim to scale even further, accelerating the greening of the desert and global food security.
                   </p>
                 </div>
 
@@ -196,7 +196,7 @@ export default function Home() {
               viewport={{ once: true }}
               className="order-2 lg:order-1"
             >
-              <img src={GoldToken} alt="USF Token" className="w-full max-w-sm mx-auto drop-shadow-2xl" />
+              <img src={GoldToken} alt="USUF Token" className="w-full max-w-sm mx-auto drop-shadow-2xl" />
             </motion.div>
             
             <motion.div
@@ -206,19 +206,19 @@ export default function Home() {
               className="space-y-6 order-1 lg:order-2"
             >
               <h2 className="text-3xl md:text-4xl font-display font-bold text-foreground">
-                The USF Token: Unitizing Food Security
+                The USUF Token: Unitizing Food Security
               </h2>
               <p className="text-lg text-muted-foreground leading-relaxed">
-                The USF token is the digital representation of our physical reserves. Every token is backed by actual food assets in our treasury.
+                The USUF token is the digital representation of our physical reserves. Every token is backed by actual food assets in our treasury.
               </p>
               
               <div className="space-y-4">
                 <div className="flex items-center gap-4 p-4 bg-white rounded-xl border border-slate-100 shadow-sm">
                   <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center text-primary font-bold">1:1</div>
-                  <p className="font-semibold text-foreground">1 USF = 1 KG Basket Food Value</p>
+                  <p className="font-semibold text-foreground">1 USUF = 1 KG Basket Food Value</p>
                 </div>
                 <p className="text-muted-foreground">
-                  By participating in the USF ecosystem, you are directly supporting the expansion of agricultural reserves and the greening of the desert.
+                  By participating in the USUF ecosystem, you are directly supporting the expansion of agricultural reserves and the greening of the desert.
                 </p>
               </div>
 
@@ -336,10 +336,10 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-3xl mx-auto mb-16 space-y-4">
             <h2 className="text-3xl md:text-4xl font-display font-bold text-foreground">
-              Why Choose USF Token?
+              Why Choose USUF Token?
             </h2>
             <p className="text-lg text-muted-foreground">
-              Built on transparency and tangible assets, USF bridges the gap between decentralized finance and global food security.
+              Built on transparency and tangible assets, USUF bridges the gap between decentralized finance and global food security.
             </p>
           </div>
 

@@ -15,7 +15,7 @@ export function Footer() {
             <span className="font-display font-bold text-xl text-white">USUF</span>
           </div>
           <p className="text-secondary-foreground/70 max-w-sm">
-            Asset-Backed Food Reserve Token. Securing agricultural value on the blockchain. 1 USF = 1 KG Basket Food Value.
+            Asset-Backed Food Reserve Token. Securing agricultural value on the blockchain. 1 USUF = 1 KG Basket Food Value.
           </p>
           <div className="flex gap-4 pt-2">
             <a href="#" className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-primary transition-colors hover:text-primary-foreground">

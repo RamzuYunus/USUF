@@ -7,7 +7,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
-import GoldToken from "@assets/gold_token_1771929546171.png";
+import GoldToken from "@assets/gold_token_1772291570860.png";
 import { ShieldCheck, Loader2, ArrowRightLeft, CheckCircle2, CreditCard, ExternalLink } from "lucide-react";
 import { motion } from "framer-motion";
 
@@ -68,7 +68,7 @@ export default function Sale() {
         >
           <div className="space-y-4">
             <h1 className="text-4xl md:text-5xl font-display font-bold">
-              Join the <span className="text-gradient-gold">USF Presale</span>
+              Join the <span className="text-gradient-gold">USUF Presale</span>
             </h1>
             <p className="text-lg text-muted-foreground">
               Secure your stake in the world's first asset-backed food reserve token. Available supply is limited.
@@ -88,7 +88,7 @@ export default function Sale() {
               <CardContent className="p-6">
                 <p className="text-sm text-muted-foreground font-medium mb-1">Available Supply</p>
                 <p className="text-3xl font-display font-bold text-foreground">
-                  {maxAvailable.toLocaleString()} <span className="text-base font-normal text-muted-foreground">USF</span>
+                  {maxAvailable.toLocaleString()} <span className="text-base font-normal text-muted-foreground">USUF</span>
                 </p>
               </CardContent>
             </Card>
@@ -128,7 +128,7 @@ export default function Sale() {
           <Card className="glass-card border-t-4 border-t-primary">
             <CardHeader className="pb-4">
               <CardTitle className="text-2xl font-display">Purchase Tokens</CardTitle>
-              <CardDescription>Enter amount of USF you wish to buy</CardDescription>
+              <CardDescription>Enter amount of USUF you wish to buy</CardDescription>
             </CardHeader>
             <CardContent className="space-y-6">
               
@@ -152,7 +152,7 @@ export default function Sale() {
 
                   <div className="space-y-4">
                     <div className="space-y-2">
-                      <Label htmlFor="amount">Amount to Buy (USF)</Label>
+                      <Label htmlFor="amount">Amount to Buy (USUF)</Label>
                       <div className="relative">
                         <Input 
                           id="amount"
@@ -164,7 +164,7 @@ export default function Sale() {
                           className="h-14 text-xl pl-4 pr-16 bg-white border-2 focus-visible:ring-primary/20"
                         />
                         <div className="absolute right-4 top-1/2 -translate-y-1/2 font-bold text-muted-foreground">
-                          USF
+                          USUF
                         </div>
                       </div>
                     </div>

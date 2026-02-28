@@ -13,8 +13,8 @@ export async function registerRoutes(
     if (!config) {
       // Seed default config if none exists
       config = await storage.updateTokenConfig({
-        price: "0.10", // 10 cents per USF
-        totalSupply: "10000000", // 10 million USF
+        price: "0.10", // 10 cents per USUF
+        totalSupply: "10000000", // 10 million USUF
         availableSupply: "10000000"
       });
     }

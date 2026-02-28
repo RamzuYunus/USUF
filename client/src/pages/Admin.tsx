@@ -200,7 +200,7 @@ export default function Admin() {
                       <TableRow className="hover:bg-transparent">
                         <TableHead>Date</TableHead>
                         <TableHead>Wallet</TableHead>
-                        <TableHead className="text-right">Amount (USF)</TableHead>
+                        <TableHead className="text-right">Amount (USUF)</TableHead>
                         <TableHead className="text-right">Cost (USDC)</TableHead>
                       </TableRow>
                     </TableHeader>
