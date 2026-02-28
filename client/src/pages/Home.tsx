@@ -4,7 +4,9 @@ import { Card, CardContent } from "@/components/ui/card";
 import { motion } from "framer-motion";
 import GoldToken from "@assets/gold_token_1771929546171.png";
 import USUFLogo from "@assets/USUF_logo_1772280201289.png";
-import { Leaf, Shield, LineChart, Globe, ArrowRight, Heart, Users, Target } from "lucide-react";
+import WatermelonField from "@assets/IMG_20260224_161928_1772281049829.jpg";
+import CantaloupeField from "@assets/IMG_20260221_162752_1772281049862.jpg";
+import { Leaf, Shield, LineChart, Globe, ArrowRight, Heart, Users, Target, Tractor, MapPin } from "lucide-react";
 
 export default function Home() {
   return (
@@ -116,6 +118,70 @@ export default function Home() {
                 </p>
               </CardContent>
             </Card>
+          </div>
+        </div>
+      </section>
+
+      {/* Current Operations Section */}
+      <section id="operations" className="py-24 bg-slate-50 border-y border-slate-200">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid lg:grid-cols-2 gap-16 items-center">
+            <motion.div
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              className="space-y-8"
+            >
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-green-100 text-green-700 text-sm font-semibold shadow-sm">
+                <Tractor className="w-4 h-4" />
+                Active Cultivation
+              </div>
+              
+              <h2 className="text-3xl md:text-4xl font-display font-bold text-foreground">
+                Current Operations in Southern Egypt
+              </h2>
+              
+              <div className="space-y-6">
+                <p className="text-lg text-muted-foreground leading-relaxed">
+                  USUF is currently actively growing and harvesting on <strong className="text-foreground">100 acres</strong> of fertile farmland in southern Egypt. This is just the beginning of our journey to secure the regional food supply.
+                </p>
+                
+                <div className="p-6 bg-white rounded-2xl border border-slate-200 shadow-sm space-y-4">
+                  <div className="flex items-center gap-3 text-primary">
+                    <Target className="w-6 h-6" />
+                    <h4 className="font-bold text-lg">Expansion Roadmap</h4>
+                  </div>
+                  <p className="text-muted-foreground">
+                    We are on track to expand to <strong className="text-foreground">10,000 acres</strong> this season. With the success of the USF token sale, we aim to scale even further, accelerating the greening of the desert and global food security.
+                  </p>
+                </div>
+
+                <div className="flex items-center gap-2 text-muted-foreground font-medium">
+                  <MapPin className="w-5 h-5 text-red-500" />
+                  <span>Southern Egypt Agricultural Zone</span>
+                </div>
+              </div>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              className="grid grid-cols-2 gap-4"
+            >
+              <div className="space-y-4 pt-8">
+                <div className="rounded-2xl overflow-hidden shadow-lg aspect-[3/4]">
+                  <img src={WatermelonField} alt="Watermelon cultivation" className="w-full h-full object-cover" />
+                </div>
+                <p className="text-center text-sm font-semibold text-muted-foreground italic">Watermelon Harvest</p>
+              </div>
+              <div className="space-y-4">
+                <div className="rounded-2xl overflow-hidden shadow-lg aspect-[3/4]">
+                  <img src={CantaloupeField} alt="Cantaloupe cultivation" className="w-full h-full object-cover" />
+                </div>
+                <p className="text-center text-sm font-semibold text-muted-foreground italic">Cantaloupe Fields</p>
+              </div>
+            </motion.div>
           </div>
         </div>
       </section>
