@@ -51,7 +51,7 @@ export default function Sale() {
 
   const tokenPrice = config ? parseFloat(config.price) : 0.1;
   const numAmount = parseFloat(amount) || 0;
-  const totalCost = (numAmount * tokenPrice).toFixed(4);
+  const totalCost = (numAmount * tokenPrice).toFixed(2);
   const maxAvailable = config ? parseFloat(config.availableSupply) : 0;
 
   const handleBlockchainBuy = async () => {
@@ -311,7 +311,7 @@ export default function Sale() {
                   </Button>
                   <div className="pt-4 border-t border-border/50">
                     <p className="text-sm text-center text-muted-foreground mb-4">Other payment methods</p>
-                    <PayPalScriptProvider options={{ "client-id": "test" }}>
+                    <PayPalScriptProvider options={{ "client-id": import.meta.env.VITE_PAYPAL_CLIENT_ID || "test" }}>
                       <PayPalButtons 
                         style={{ layout: "horizontal" }}
                         createOrder={(data, actions) => {
