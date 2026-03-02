@@ -7,8 +7,13 @@ import USUFLogo from "@assets/USUF_logo_1772280201289.png";
 import WatermelonField from "@assets/IMG_20260224_161928_1772281049829.jpg";
 import CantaloupeField from "@assets/IMG_20260221_162752_1772281049862.jpg";
 import { Leaf, Shield, LineChart, Globe, ArrowRight, Heart, Users, Target, Tractor, MapPin } from "lucide-react";
+import { usePageContent } from "@/hooks/use-content";
+import { HOME_DEFAULT, type HomeContent } from "@/lib/content-defaults";
 
 export default function Home() {
+  const { content } = usePageContent<HomeContent>("home", HOME_DEFAULT);
+  const c = content;
+
   return (
     <div className="flex flex-col min-h-screen">
       {/* Hero Section - Focused on Mission */}
@@ -27,17 +32,17 @@ export default function Home() {
             >
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white border border-primary/20 text-primary text-sm font-semibold shadow-sm">
                 <Heart className="w-4 h-4 text-red-500 animate-pulse" />
-                Humanitarian Mission First
+                {c.hero.badge}
               </div>
               
               <h1 className="text-5xl sm:text-6xl lg:text-7xl font-display font-extrabold leading-[1.1]">
-                <span className="text-foreground">Securing the World's</span><br/>
-                <span className="text-gradient-gold">Food Future</span><br/>
-                <span className="text-foreground">Today</span>
+                <span className="text-foreground">{c.hero.line1}</span><br/>
+                <span className="text-gradient-gold">{c.hero.highlight}</span><br/>
+                <span className="text-foreground">{c.hero.line3}</span>
               </h1>
               
               <p className="text-xl text-muted-foreground max-w-lg leading-relaxed">
-                United Stored Unitized Food (USUF) is an Egyptian Agricultural Treasury dedicated to global food security through innovative asset-backed unitization.
+                {c.hero.description}
               </p>
               
               <div className="flex flex-col sm:flex-row gap-4 pt-4">
@@ -77,47 +82,31 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-3xl mx-auto mb-16 space-y-4">
             <h2 className="text-3xl md:text-4xl font-display font-bold text-foreground">
-              Our Humanitarian Commitment
+              {c.mission.title}
             </h2>
             <p className="text-lg text-muted-foreground">
-              We leverage Egypt's agricultural potential to create a stable, transparent, and resilient food reserve for the entire world.
+              {c.mission.subtitle}
             </p>
           </div>
 
           <div className="grid md:grid-cols-3 gap-8">
-            <Card className="border-none shadow-none bg-transparent">
-              <CardContent className="p-0 space-y-4">
-                <div className="w-16 h-16 rounded-2xl bg-blue-50 flex items-center justify-center text-blue-600">
-                  <Users className="w-8 h-8" />
-                </div>
-                <h3 className="text-2xl font-bold font-display">Egypt & Africa</h3>
-                <p className="text-muted-foreground leading-relaxed">
-                  Supporting African nations through fair trade and humanitarian assistance, securing the continent's food base from Cairo.
-                </p>
-              </CardContent>
-            </Card>
-            <Card className="border-none shadow-none bg-transparent">
-              <CardContent className="p-0 space-y-4">
-                <div className="w-16 h-16 rounded-2xl bg-green-50 flex items-center justify-center text-green-600">
-                  <Leaf className="w-8 h-8" />
-                </div>
-                <h3 className="text-2xl font-bold font-display">Desert Greening</h3>
-                <p className="text-muted-foreground leading-relaxed">
-                  Transforming arid landscapes into productive agricultural hubs through sustainable desert farming and modern technology.
-                </p>
-              </CardContent>
-            </Card>
-            <Card className="border-none shadow-none bg-transparent">
-              <CardContent className="p-0 space-y-4">
-                <div className="w-16 h-16 rounded-2xl bg-amber-50 flex items-center justify-center text-amber-600">
-                  <Target className="w-8 h-8" />
-                </div>
-                <h3 className="text-2xl font-bold font-display">Global Stability</h3>
-                <p className="text-muted-foreground leading-relaxed">
-                  Functioning as a humanitarian stabilization mechanism to combat food price volatility on a global scale.
-                </p>
-              </CardContent>
-            </Card>
+            {[
+              { icon: Users, color: "blue" },
+              { icon: Leaf, color: "green" },
+              { icon: Target, color: "amber" },
+            ].map((item, i) => (
+              <Card key={i} className="border-none shadow-none bg-transparent">
+                <CardContent className="p-0 space-y-4">
+                  <div className={`w-16 h-16 rounded-2xl bg-${item.color}-50 flex items-center justify-center text-${item.color}-600`}>
+                    <item.icon className="w-8 h-8" />
+                  </div>
+                  <h3 className="text-2xl font-bold font-display">{c.mission.cards[i]?.title}</h3>
+                  <p className="text-muted-foreground leading-relaxed">
+                    {c.mission.cards[i]?.desc}
+                  </p>
+                </CardContent>
+              </Card>
+            ))}
           </div>
         </div>
       </section>
@@ -138,12 +127,12 @@ export default function Home() {
               </div>
               
               <h2 className="text-3xl md:text-4xl font-display font-bold text-foreground">
-                Current Operations in Southern Egypt
+                {c.operations.title}
               </h2>
               
               <div className="space-y-6">
                 <p className="text-lg text-muted-foreground leading-relaxed">
-                  USUF is currently actively growing and harvesting on <strong className="text-foreground">100 acres</strong> of fertile farmland in southern Egypt. This is just the beginning of our journey to secure the regional food supply.
+                  {c.operations.intro}
                 </p>
                 
                 <div className="p-6 bg-white rounded-2xl border border-slate-200 shadow-sm space-y-4">
@@ -152,13 +141,13 @@ export default function Home() {
                     <h4 className="font-bold text-lg">Expansion Roadmap</h4>
                   </div>
                   <p className="text-muted-foreground">
-                    We are on track to expand to <strong className="text-foreground">10,000 acres</strong> this season. With the success of the USUF token sale, we aim to scale even further, accelerating the greening of the desert and global food security.
+                    {c.operations.expansion}
                   </p>
                 </div>
 
                 <div className="flex items-center gap-2 text-muted-foreground font-medium">
                   <MapPin className="w-5 h-5 text-red-500" />
-                  <span>Southern Egypt Agricultural Zone</span>
+                  <span>{c.operations.location}</span>
                 </div>
               </div>
             </motion.div>
@@ -206,19 +195,19 @@ export default function Home() {
               className="space-y-6 order-1 lg:order-2"
             >
               <h2 className="text-3xl md:text-4xl font-display font-bold text-foreground">
-                The USUF Token: Unitizing Food Security
+                {c.token.title}
               </h2>
               <p className="text-lg text-muted-foreground leading-relaxed">
-                The USUF token is the digital representation of our physical reserves. Every token is backed by actual food assets in our treasury.
+                {c.token.description}
               </p>
               
               <div className="space-y-4">
                 <div className="flex items-center gap-4 p-4 bg-white rounded-xl border border-slate-100 shadow-sm">
                   <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center text-primary font-bold">1:1</div>
-                  <p className="font-semibold text-foreground">1 USUF = 1 KG Basket Food Value</p>
+                  <p className="font-semibold text-foreground">{c.token.ratioLabel}</p>
                 </div>
                 <p className="text-muted-foreground">
-                  By participating in the USUF ecosystem, you are directly supporting the expansion of agricultural reserves and the greening of the desert.
+                  {c.token.ecosystemText}
                 </p>
               </div>
 
@@ -278,7 +267,7 @@ export default function Home() {
                 <h3 className="text-xl font-bold font-display text-foreground">USUF aims to:</h3>
                 <ul className="space-y-3">
                   {[
-                    "Secure Egypt’s and the global food base",
+                    "Secure Egypt's and the global food base",
                     "Expand desert agriculture and greening of the desert",
                     "Support African nations via fair trade and humanitarian assistance"
                   ].map((aim, i) => (

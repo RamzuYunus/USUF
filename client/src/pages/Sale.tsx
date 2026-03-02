@@ -1,4 +1,5 @@
-import { useState, useMemo } from "react";
+import { useState } from "react";
+import { Link } from "wouter";
 import { useTokenConfig } from "@/hooks/use-token";
 import { useCreatePurchase } from "@/hooks/use-purchases";
 import { useWallet } from "@/hooks/use-wallet";
@@ -10,16 +11,18 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } f
 import GoldToken from "@assets/gold_token_1772291570860.png";
 import { ShieldCheck, Loader2, ArrowRightLeft, CheckCircle2, CreditCard, ExternalLink } from "lucide-react";
 import { motion } from "framer-motion";
+import { usePageContent } from "@/hooks/use-content";
+import { SALE_DEFAULT, type SaleContent } from "@/lib/content-defaults";
 
 export default function Sale() {
   const { data: config, isLoading: isLoadingConfig } = useTokenConfig();
   const { address, isConnected, connect, balance } = useWallet();
   const createPurchase = useCreatePurchase();
+  const { content } = usePageContent<SaleContent>("sale", SALE_DEFAULT);
   
   const [amount, setAmount] = useState<string>("100");
   const [showSuccess, setShowSuccess] = useState(false);
 
-  // Parse values safely
   const tokenPrice = config ? parseFloat(config.price) : 0;
   const numAmount = parseFloat(amount) || 0;
   const totalCost = (numAmount * tokenPrice).toFixed(4);
@@ -52,7 +55,6 @@ export default function Sale() {
 
   return (
     <div className="min-h-[calc(100vh-80px)] py-12 px-4 sm:px-6 relative flex items-center justify-center">
-      {/* Background decoration */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none -z-10">
         <div className="absolute -top-1/2 -right-1/4 w-[1000px] h-[1000px] rounded-full bg-primary/5 blur-3xl" />
         <div className="absolute -bottom-1/2 -left-1/4 w-[800px] h-[800px] rounded-full bg-blue-500/5 blur-3xl" />
@@ -68,10 +70,10 @@ export default function Sale() {
         >
           <div className="space-y-4">
             <h1 className="text-4xl md:text-5xl font-display font-bold">
-              Join the <span className="text-gradient-gold">USUF Presale</span>
+              Join the <span className="text-gradient-gold">{content.title.replace("Join the ", "")}</span>
             </h1>
             <p className="text-lg text-muted-foreground">
-              Secure your stake in the world's first asset-backed food reserve token. Available supply is limited.
+              {content.subtitle}
             </p>
           </div>
 
@@ -122,7 +124,7 @@ export default function Sale() {
                   <ExternalLink className="w-5 h-5 text-primary" />
                   <span className="text-sm font-semibold">Official Sale Platform</span>
                 </div>
-                <Button variant="link" asChild className="text-primary font-bold">
+                <Button variant="ghost" asChild className="text-primary font-bold hover:text-primary/80">
                   <a href={config.externalSaleUrl} target="_blank" rel="noopener noreferrer">
                     Visit Official Sale
                   </a>
@@ -221,7 +223,6 @@ export default function Sale() {
         </motion.div>
       </div>
 
-      {/* Success Modal */}
       <Dialog open={showSuccess} onOpenChange={setShowSuccess}>
         <DialogContent className="sm:max-w-md text-center">
           <DialogHeader>

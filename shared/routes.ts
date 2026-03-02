@@ -15,6 +15,17 @@ export const errorSchemas = {
 };
 
 export const api = {
+  content: {
+    get: {
+      method: 'GET' as const,
+      path: '/api/content/:key' as const,
+    },
+    set: {
+      method: 'POST' as const,
+      path: '/api/content/:key' as const,
+      input: z.object({ value: z.string() }),
+    },
+  },
   token: {
     get: {
       method: 'GET' as const,

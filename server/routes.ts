@@ -8,6 +8,25 @@ export async function registerRoutes(
   httpServer: Server,
   app: Express
 ): Promise<Server> {
+  app.get('/api/content/:key', async (req, res) => {
+    const { key } = req.params;
+    const value = await storage.getPageContent(key);
+    if (value === undefined) {
+      return res.status(404).json({ message: 'Content not found' });
+    }
+    res.json({ key, value });
+  });
+
+  app.post('/api/content/:key', async (req, res) => {
+    const { key } = req.params;
+    const { value } = req.body;
+    if (typeof value !== 'string') {
+      return res.status(400).json({ message: 'value must be a string' });
+    }
+    await storage.setPageContent(key, value);
+    res.json({ key, value });
+  });
+
   app.get(api.token.get.path, async (req, res) => {
     let config = await storage.getTokenConfig();
     if (!config) {

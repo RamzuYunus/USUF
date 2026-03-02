@@ -2,6 +2,11 @@ import { pgTable, text, serial, integer, numeric, timestamp } from "drizzle-orm/
 import { createInsertSchema } from "drizzle-zod";
 import { z } from "zod";
 
+export const pageContent = pgTable("page_content", {
+  key: text("key").primaryKey(),
+  value: text("value").notNull(),
+});
+
 export const tokenConfig = pgTable("token_config", {
   id: serial("id").primaryKey(),
   price: numeric("price").notNull(), // String representation of decimal

@@ -2,6 +2,7 @@ import { db } from "./db";
 import {
   tokenConfig,
   purchases,
+  pageContent,
   type TokenConfig,
   type UpdateTokenConfigRequest,
   type Purchase,
@@ -14,6 +15,8 @@ export interface IStorage {
   updateTokenConfig(updates: UpdateTokenConfigRequest): Promise<TokenConfig>;
   createPurchase(purchase: InsertPurchase): Promise<Purchase>;
   getPurchases(): Promise<Purchase[]>;
+  getPageContent(key: string): Promise<string | undefined>;
+  setPageContent(key: string, value: string): Promise<void>;
 }
 
 export class DatabaseStorage implements IStorage {
@@ -59,6 +62,17 @@ export class DatabaseStorage implements IStorage {
 
   async getPurchases(): Promise<Purchase[]> {
     return await db.select().from(purchases).orderBy(desc(purchases.createdAt));
+  }
+
+  async getPageContent(key: string): Promise<string | undefined> {
+    const [row] = await db.select().from(pageContent).where(eq(pageContent.key, key));
+    return row?.value;
+  }
+
+  async setPageContent(key: string, value: string): Promise<void> {
+    await db.insert(pageContent)
+      .values({ key, value })
+      .onConflictDoUpdate({ target: pageContent.key, set: { value } });
   }
 }
 
