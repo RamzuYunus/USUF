@@ -13,6 +13,7 @@ import { Footer } from "@/components/layout/Footer";
 import Home from "@/pages/Home";
 import Sale from "@/pages/Sale";
 import Admin from "@/pages/Admin";
+import ReservePolicy from "@/pages/ReservePolicy";
 
 function Router() {
   return (
@@ -23,6 +24,7 @@ function Router() {
           <Route path="/" component={Home} />
           <Route path="/sale" component={Sale} />
           <Route path="/admin" component={Admin} />
+          <Route path="/reserve-policy" component={ReservePolicy} />
           <Route component={NotFound} />
         </Switch>
       </main>

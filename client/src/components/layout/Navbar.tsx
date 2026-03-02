@@ -14,6 +14,7 @@ export function Navbar() {
   const navLinks = [
     { name: "Home", href: "/" },
     { name: "Token Sale", href: "/sale" },
+    { name: "Reserve Policy", href: "/reserve-policy" },
     { name: "Admin", href: "/admin" },
   ];
 
