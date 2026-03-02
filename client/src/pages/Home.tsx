@@ -222,9 +222,12 @@ export default function Home() {
                 </p>
               </div>
 
-              <div className="pt-4">
+              <div className="pt-4 flex flex-wrap gap-4">
                 <Button asChild size="lg" className="rounded-full bg-secondary text-secondary-foreground hover:bg-secondary/90 px-10">
                   <Link href="/sale">Participate in Presale</Link>
+                </Button>
+                <Button asChild variant="outline" size="lg" className="rounded-full border-2 px-10">
+                  <Link href="/whitepaper">Whitepaper</Link>
                 </Button>
               </div>
             </motion.div>

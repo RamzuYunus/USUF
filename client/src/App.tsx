@@ -15,6 +15,7 @@ import Sale from "@/pages/Sale";
 import Admin from "@/pages/Admin";
 import ReservePolicy from "@/pages/ReservePolicy";
 import MintingPolicy from "@/pages/MintingPolicy";
+import Whitepaper from "@/pages/Whitepaper";
 
 function Router() {
   return (
@@ -27,6 +28,7 @@ function Router() {
           <Route path="/admin" component={Admin} />
           <Route path="/reserve-policy" component={ReservePolicy} />
           <Route path="/minting-policy" component={MintingPolicy} />
+          <Route path="/whitepaper" component={Whitepaper} />
           <Route component={NotFound} />
         </Switch>
       </main>

@@ -94,6 +94,12 @@ export default function Sale() {
             </Card>
           </div>
 
+          <div className="pt-4">
+            <Button asChild variant="outline" className="rounded-full border-2 w-full sm:w-auto">
+              <Link href="/whitepaper">Read Whitepaper</Link>
+            </Button>
+          </div>
+
           <div className="hidden lg:flex justify-center pt-8">
             <img 
               src={GoldToken} 
