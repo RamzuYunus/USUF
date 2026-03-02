@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { FileText, Shield, Globe, Lock, BarChart3, Info, Scale, CheckCircle2 } from "lucide-react";
+import { FileText, Shield, Globe, Lock, BarChart3, Info, Scale, CheckCircle2, Download } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 export default function Whitepaper() {
   const sections = [
@@ -57,9 +58,15 @@ export default function Whitepaper() {
           <h1 className="text-4xl md:text-5xl font-display font-bold text-foreground mb-4">
             Institutional Whitepaper
           </h1>
-          <p className="text-xl text-muted-foreground">
+          <p className="text-xl text-muted-foreground mb-8">
             Version 1.0 | Food-Backed Digital Reserve Instrument
           </p>
+          <Button asChild size="lg" className="rounded-full bg-primary hover:bg-primary/90 shadow-lg">
+            <a href="/USUF_Whitepaper.pdf" download="USUF_Institutional_Whitepaper.pdf">
+              <Download className="w-5 h-5 mr-2" />
+              Download Full PDF
+            </a>
+          </Button>
         </motion.div>
 
         <div className="grid gap-6 md:grid-cols-2">
