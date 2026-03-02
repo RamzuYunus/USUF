@@ -1,10 +1,16 @@
 import { Link, useLocation } from "wouter";
 import { useWallet } from "@/hooks/use-wallet";
 import { Button } from "@/components/ui/button";
-import { Wallet, Menu, ShieldCheck } from "lucide-react";
+import { Wallet, Menu, ShieldCheck, ChevronDown } from "lucide-react";
 import USUFLogo from "@assets/USUF_logo_1772280201289.png";
 import { useState } from "react";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 export function Navbar() {
   const [location] = useLocation();
@@ -14,7 +20,7 @@ export function Navbar() {
   const navLinks = [
     { name: "Home", href: "/" },
     { name: "Token Sale", href: "/sale" },
-    { name: "Reserve Policy", href: "/reserve-policy" },
+    { name: "Policies", href: "#" },
     { name: "Admin", href: "/admin" },
   ];
 
@@ -36,15 +42,31 @@ export function Navbar() {
         {/* Desktop Nav */}
         <nav className="hidden md:flex items-center gap-8">
           {navLinks.map((link) => (
-            <Link 
-              key={link.href} 
-              href={link.href}
-              className={`text-sm font-semibold transition-colors hover:text-primary ${
-                location === link.href ? "text-primary" : "text-muted-foreground"
-              }`}
-            >
-              {link.name}
-            </Link>
+            link.name === "Policies" ? (
+              <DropdownMenu key={link.name}>
+                <DropdownMenuTrigger className="flex items-center gap-1 text-sm font-semibold transition-colors hover:text-primary text-muted-foreground outline-none">
+                  Policies <ChevronDown className="w-4 h-4" />
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="start" className="w-48">
+                  <DropdownMenuItem asChild>
+                    <Link href="/reserve-policy" className="w-full cursor-pointer font-semibold">Reserve Policy</Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem asChild>
+                    <Link href="/minting-policy" className="w-full cursor-pointer font-semibold">Minting Policy</Link>
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            ) : (
+              <Link 
+                key={link.href} 
+                href={link.href}
+                className={`text-sm font-semibold transition-colors hover:text-primary ${
+                  location === link.href ? "text-primary" : "text-muted-foreground"
+                }`}
+              >
+                {link.name}
+              </Link>
+            )
           ))}
         </nav>
 
@@ -81,16 +103,40 @@ export function Navbar() {
             <SheetContent side="right" className="flex flex-col gap-6 pt-16">
               <nav className="flex flex-col gap-4">
                 {navLinks.map((link) => (
-                  <Link 
-                    key={link.href} 
-                    href={link.href}
-                    onClick={() => setIsOpen(false)}
-                    className={`text-lg font-semibold px-4 py-2 rounded-lg ${
-                      location === link.href ? "bg-primary/10 text-primary" : "text-foreground"
-                    }`}
-                  >
-                    {link.name}
-                  </Link>
+                  link.name === "Policies" ? (
+                    <div key={link.name} className="flex flex-col gap-2">
+                      <span className="text-lg font-semibold px-4 text-muted-foreground">Policies</span>
+                      <Link 
+                        href="/reserve-policy"
+                        onClick={() => setIsOpen(false)}
+                        className={`text-base font-semibold px-8 py-2 rounded-lg ${
+                          location === "/reserve-policy" ? "bg-primary/10 text-primary" : "text-foreground"
+                        }`}
+                      >
+                        Reserve Policy
+                      </Link>
+                      <Link 
+                        href="/minting-policy"
+                        onClick={() => setIsOpen(false)}
+                        className={`text-base font-semibold px-8 py-2 rounded-lg ${
+                          location === "/minting-policy" ? "bg-primary/10 text-primary" : "text-foreground"
+                        }`}
+                      >
+                        Minting Policy
+                      </Link>
+                    </div>
+                  ) : (
+                    <Link 
+                      key={link.href} 
+                      href={link.href}
+                      onClick={() => setIsOpen(false)}
+                      className={`text-lg font-semibold px-4 py-2 rounded-lg ${
+                        location === link.href ? "bg-primary/10 text-primary" : "text-foreground"
+                      }`}
+                    >
+                      {link.name}
+                    </Link>
+                  )
                 ))}
               </nav>
               <div className="mt-auto pb-8">
