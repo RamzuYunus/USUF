@@ -16,6 +16,7 @@ import { SALE_DEFAULT, type SaleContent } from "@/lib/content-defaults";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { ethers } from "ethers";
 import { useToast } from "@/hooks/use-toast";
+import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
 
 // Addresses on Polygon Mainnet
 const CONTRACT_ADDRESSES = {
@@ -65,11 +66,9 @@ export default function Sale() {
       const tokenContract = new ethers.Contract(tokenAddress, ERC20_ABI, signer);
       const saleContract = new ethers.Contract(CONTRACT_ADDRESSES.SALE, SALE_ABI, signer);
 
-      // Decimals for USDC/USDT on Polygon are usually 6
       const decimals = await tokenContract.decimals();
       const costInBaseUnits = ethers.utils.parseUnits(totalCost, decimals);
 
-      // 1. Check Allowance
       const currentAllowance = await tokenContract.allowance(address, CONTRACT_ADDRESSES.SALE);
       
       if (currentAllowance.lt(costInBaseUnits)) {
@@ -79,24 +78,20 @@ export default function Sale() {
         toast({ title: "Approved", description: "Token spending approved successfully." });
       }
 
-      // 2. Call Buy Function
       toast({ title: "Processing Purchase", description: "Please confirm the transaction in your wallet..." });
       
-      // Note: Assuming the contract buy function takes amount of USUF or total cost? 
-      // User prompt says "Call the sale contract's buy function with the specified amount"
-      // Usually these functions take the amount of tokens to buy or the amount of stablecoin.
-      // Based on common patterns:
       const buyTx = paymentToken === "USDC" 
-        ? await saleContract.buyWithUSDC(ethers.utils.parseUnits(amount, 18)) // USUF has 18 decimals usually
+        ? await saleContract.buyWithUSDC(ethers.utils.parseUnits(amount, 18))
         : await saleContract.buyWithUSDT(ethers.utils.parseUnits(amount, 18));
       
       await buyTx.wait();
 
-      // 3. Record in Backend
       createPurchase.mutate({
         walletAddress: address,
         amount: numAmount.toString(),
         totalCost: totalCost.toString(),
+        paymentMethod: "blockchain",
+        status: "completed"
       }, {
         onSuccess: () => {
           setShowSuccess(true);
@@ -114,6 +109,21 @@ export default function Sale() {
     } finally {
       setIsProcessing(false);
     }
+  };
+
+  const handlePayPalSuccess = (details: any) => {
+    createPurchase.mutate({
+      walletAddress: address || "PayPal User",
+      amount: numAmount.toString(),
+      totalCost: totalCost.toString(),
+      paymentMethod: "paypal",
+      status: "completed"
+    }, {
+      onSuccess: () => {
+        setShowSuccess(true);
+        setAmount("100");
+      }
+    });
   };
 
   if (isLoadingConfig) {
@@ -301,14 +311,25 @@ export default function Sale() {
                   </Button>
                   <div className="pt-4 border-t border-border/50">
                     <p className="text-sm text-center text-muted-foreground mb-4">Other payment methods</p>
-                    <Button 
-                      variant="outline"
-                      className="w-full h-12 border-blue-200 bg-blue-50 text-blue-700 hover:bg-blue-100 font-bold"
-                      onClick={() => window.open('https://www.paypal.com/checkoutnow', '_blank')}
-                    >
-                      <CreditCard className="w-4 h-4 mr-2" />
-                      Pay with PayPal
-                    </Button>
+                    <PayPalScriptProvider options={{ "client-id": "test" }}>
+                      <PayPalButtons 
+                        style={{ layout: "horizontal" }}
+                        createOrder={(data, actions) => {
+                          return actions.order.create({
+                            purchase_units: [
+                              {
+                                amount: {
+                                  value: totalCost,
+                                },
+                              },
+                            ],
+                          });
+                        }}
+                        onApprove={(data, actions) => {
+                          return actions.order!.capture().then(handlePayPalSuccess);
+                        }}
+                      />
+                    </PayPalScriptProvider>
                   </div>
                 </>
               )}
@@ -325,7 +346,7 @@ export default function Sale() {
             </div>
             <DialogTitle className="text-2xl font-display text-center">Purchase Successful!</DialogTitle>
             <DialogDescription className="text-center text-base">
-              The transaction has been confirmed on the blockchain. Your USUF tokens are being delivered.
+              The transaction has been confirmed. Your USUF tokens are being delivered.
             </DialogDescription>
           </DialogHeader>
           <div className="py-6">

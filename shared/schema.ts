@@ -20,6 +20,8 @@ export const purchases = pgTable("purchases", {
   walletAddress: text("wallet_address").notNull(),
   amount: numeric("amount").notNull(),
   totalCost: numeric("total_cost").notNull(),
+  paymentMethod: text("payment_method").default("blockchain"),
+  status: text("status").default("completed"),
   createdAt: timestamp("created_at").defaultNow(),
 });
 
