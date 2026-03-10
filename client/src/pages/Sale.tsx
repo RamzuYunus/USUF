@@ -48,6 +48,7 @@ export default function Sale() {
   const [paymentToken, setPaymentToken] = useState<"USDC" | "USDT">("USDC");
   const [isProcessing, setIsProcessing] = useState(false);
   const [showSuccess, setShowSuccess] = useState(false);
+  const [transactionHash, setTransactionHash] = useState<string>("");
 
   const tokenPrice = config ? parseFloat(config.price) : 0.1;
   const numAmount = parseFloat(amount) || 0;
@@ -111,19 +112,60 @@ export default function Sale() {
     }
   };
 
-  const handlePayPalSuccess = (details: any) => {
-    createPurchase.mutate({
-      walletAddress: address || "PayPal User",
-      amount: numAmount.toString(),
-      totalCost: totalCost.toString(),
-      paymentMethod: "paypal",
-      status: "completed"
-    }, {
-      onSuccess: () => {
-        setShowSuccess(true);
-        setAmount("100");
+  const handlePayPalSuccess = async (details: any) => {
+    try {
+      setIsProcessing(true);
+      
+      // Use wallet address if connected, otherwise generate a placeholder
+      const recipientAddr = address || details.payer?.email_address || "paypal-user";
+      
+      // Call backend to capture and transfer tokens
+      const response = await fetch("/api/paypal/capture", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          orderId: details.id,
+          recipientAddress: recipientAddr,
+          usdAmount: totalCost
+        })
+      });
+
+      const result = await response.json();
+
+      if (!response.ok) {
+        throw new Error(result.message || "Token transfer failed");
       }
-    });
+
+      setTransactionHash(result.transactionHash);
+
+      // Record purchase
+      createPurchase.mutate({
+        walletAddress: recipientAddr,
+        amount: numAmount.toString(),
+        totalCost: totalCost.toString(),
+        paymentMethod: "paypal",
+        status: "completed"
+      }, {
+        onSuccess: () => {
+          setShowSuccess(true);
+          setAmount("100");
+        }
+      });
+
+      toast({
+        title: "Tokens Transferred",
+        description: `Transaction: ${result.transactionHash.slice(0, 10)}...`
+      });
+    } catch (error: any) {
+      console.error("PayPal capture error:", error);
+      toast({
+        title: "Transfer Failed",
+        description: error.message || "Failed to transfer tokens",
+        variant: "destructive"
+      });
+    } finally {
+      setIsProcessing(false);
+    }
   };
 
   if (isLoadingConfig) {
@@ -346,10 +388,25 @@ export default function Sale() {
             </div>
             <DialogTitle className="text-2xl font-display text-center">Purchase Successful!</DialogTitle>
             <DialogDescription className="text-center text-base">
-              The transaction has been confirmed. Your USUF tokens are being delivered.
+              {numAmount} USUF tokens have been transferred to your address.
             </DialogDescription>
           </DialogHeader>
-          <div className="py-6">
+          <div className="py-6 space-y-4">
+            {transactionHash && (
+              <div className="bg-muted/50 p-4 rounded-lg text-left">
+                <p className="text-xs text-muted-foreground mb-2">Transaction Hash:</p>
+                <a
+                  href={`https://polygonscan.com/tx/${transactionHash}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-xs text-primary hover:underline break-all flex items-center gap-2"
+                  data-testid="transaction-hash-link"
+                >
+                  {transactionHash.slice(0, 20)}...{transactionHash.slice(-10)}
+                  <ExternalLink className="w-3 h-3" />
+                </a>
+              </div>
+            )}
             <Button onClick={() => setShowSuccess(false)} className="w-full font-bold">
               Done
             </Button>

@@ -63,6 +63,30 @@ export const api = {
       },
     },
   },
+  paypal: {
+    capture: {
+      method: 'POST' as const,
+      path: '/api/paypal/capture' as const,
+      input: z.object({
+        orderId: z.string(),
+        recipientAddress: z.string(),
+        usdAmount: z.string(),
+      }),
+      responses: {
+        200: z.object({
+          success: z.boolean(),
+          transactionHash: z.string(),
+          tokenAmount: z.string(),
+          usdAmount: z.string(),
+          recipient: z.string(),
+        }),
+        400: z.object({
+          success: z.boolean(),
+          message: z.string(),
+        }),
+      },
+    },
+  },
 };
 
 export function buildUrl(path: string, params?: Record<string, string | number>): string {

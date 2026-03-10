@@ -3,10 +3,13 @@ import {
   tokenConfig,
   purchases,
   pageContent,
+  tokenTransfers,
   type TokenConfig,
   type UpdateTokenConfigRequest,
   type Purchase,
-  type InsertPurchase
+  type InsertPurchase,
+  type TokenTransfer,
+  type InsertTokenTransfer
 } from "@shared/schema";
 import { eq, desc } from "drizzle-orm";
 
@@ -17,6 +20,9 @@ export interface IStorage {
   getPurchases(): Promise<Purchase[]>;
   getPageContent(key: string): Promise<string | undefined>;
   setPageContent(key: string, value: string): Promise<void>;
+  createTokenTransfer(transfer: InsertTokenTransfer): Promise<TokenTransfer>;
+  getTokenTransferByOrderId(orderId: string): Promise<TokenTransfer | undefined>;
+  updateTokenTransfer(orderId: string, updates: Partial<InsertTokenTransfer>): Promise<TokenTransfer>;
 }
 
 export class DatabaseStorage implements IStorage {
@@ -73,6 +79,24 @@ export class DatabaseStorage implements IStorage {
     await db.insert(pageContent)
       .values({ key, value })
       .onConflictDoUpdate({ target: pageContent.key, set: { value } });
+  }
+
+  async createTokenTransfer(transfer: InsertTokenTransfer): Promise<TokenTransfer> {
+    const [newTransfer] = await db.insert(tokenTransfers).values(transfer).returning();
+    return newTransfer;
+  }
+
+  async getTokenTransferByOrderId(orderId: string): Promise<TokenTransfer | undefined> {
+    const [transfer] = await db.select().from(tokenTransfers).where(eq(tokenTransfers.paypalOrderId, orderId));
+    return transfer;
+  }
+
+  async updateTokenTransfer(orderId: string, updates: Partial<InsertTokenTransfer>): Promise<TokenTransfer> {
+    const [updated] = await db.update(tokenTransfers)
+      .set(updates)
+      .where(eq(tokenTransfers.paypalOrderId, orderId))
+      .returning();
+    return updated;
   }
 }
 

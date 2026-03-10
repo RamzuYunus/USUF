@@ -25,8 +25,21 @@ export const purchases = pgTable("purchases", {
   createdAt: timestamp("created_at").defaultNow(),
 });
 
+export const tokenTransfers = pgTable("token_transfers", {
+  id: serial("id").primaryKey(),
+  paypalOrderId: text("paypal_order_id").notNull().unique(),
+  recipientAddress: text("recipient_address").notNull(),
+  tokenAmount: numeric("token_amount").notNull(),
+  usdAmount: numeric("usd_amount").notNull(),
+  transactionHash: text("transaction_hash"),
+  status: text("status").default("pending"), // pending, confirmed, failed
+  errorMessage: text("error_message"),
+  createdAt: timestamp("created_at").defaultNow(),
+});
+
 export const insertTokenConfigSchema = createInsertSchema(tokenConfig).omit({ id: true });
 export const insertPurchaseSchema = createInsertSchema(purchases).omit({ id: true, createdAt: true });
+export const insertTokenTransferSchema = createInsertSchema(tokenTransfers).omit({ id: true, createdAt: true });
 
 export type TokenConfig = typeof tokenConfig.$inferSelect;
 export type InsertTokenConfig = z.infer<typeof insertTokenConfigSchema>;
@@ -35,3 +48,6 @@ export type UpdateTokenConfigRequest = Partial<InsertTokenConfig>;
 export type Purchase = typeof purchases.$inferSelect;
 export type InsertPurchase = z.infer<typeof insertPurchaseSchema>;
 export type CreatePurchaseRequest = InsertPurchase;
+
+export type TokenTransfer = typeof tokenTransfers.$inferSelect;
+export type InsertTokenTransfer = z.infer<typeof insertTokenTransferSchema>;
