@@ -326,23 +326,10 @@ function WhitepaperContentEditor() {
   );
 }
 
-export default function Admin() {
-  const { isAuthenticated, isLoading: isAuthLoading, logout } = useAdminAuth();
+function AdminPanel({ logout }: { logout: () => void }) {
   const { data: config, isLoading: isLoadingConfig } = useTokenConfig();
   const { data: purchases = [], isLoading: isLoadingPurchases } = usePurchases();
   const updateConfig = useUpdateTokenConfig();
-
-  if (isAuthLoading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <Loader2 className="w-8 h-8 animate-spin text-primary" />
-      </div>
-    );
-  }
-
-  if (!isAuthenticated) {
-    return <AdminLoginForm />;
-  }
 
   const form = useForm<TokenFormValues>({
     resolver: zodResolver(tokenFormSchema),
@@ -571,4 +558,22 @@ export default function Admin() {
       </Tabs>
     </div>
   );
+}
+
+export default function Admin() {
+  const { isAuthenticated, isLoading: isAuthLoading, logout } = useAdminAuth();
+
+  if (isAuthLoading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <Loader2 className="w-8 h-8 animate-spin text-primary" />
+      </div>
+    );
+  }
+
+  if (!isAuthenticated) {
+    return <AdminLoginForm />;
+  }
+
+  return <AdminPanel logout={logout} />;
 }
