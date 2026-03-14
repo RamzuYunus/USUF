@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useTokenConfig, useUpdateTokenConfig } from "@/hooks/use-token";
 import { usePurchases } from "@/hooks/use-purchases";
 import { usePageContent, useSetPageContent } from "@/hooks/use-content";
+import { useAdminAuth } from "@/hooks/use-admin-auth";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -14,7 +15,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { insertTokenConfigSchema } from "@shared/schema";
 import { z } from "zod";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
-import { Loader2, Coins, DollarSign, Activity, Save } from "lucide-react";
+import { Loader2, Coins, DollarSign, Activity, Save, Lock, LogOut } from "lucide-react";
 import { format } from "date-fns";
 import { HOME_DEFAULT, SALE_DEFAULT, WHITEPAPER_DEFAULT, type HomeContent, type SaleContent, type WhitepaperContent } from "@/lib/content-defaults";
 import { useToast } from "@/hooks/use-toast";
@@ -27,6 +28,73 @@ const tokenFormSchema = z.object({
 });
 
 type TokenFormValues = z.infer<typeof tokenFormSchema>;
+
+function AdminLoginForm() {
+  const { login } = useAdminAuth();
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    setError("");
+
+    if (login(password)) {
+      setPassword("");
+    } else {
+      setError("Invalid password");
+      setPassword("");
+    }
+    setIsSubmitting(false);
+  };
+
+  return (
+    <div className="min-h-screen flex items-center justify-center px-4 py-12">
+      <Card className="w-full max-w-md">
+        <CardHeader className="space-y-4 text-center">
+          <div className="mx-auto w-16 h-16 bg-primary/10 text-primary rounded-full flex items-center justify-center">
+            <Lock className="w-8 h-8" />
+          </div>
+          <CardTitle className="text-2xl font-display">Admin Access</CardTitle>
+          <p className="text-sm text-muted-foreground">Enter your password to access admin controls</p>
+        </CardHeader>
+        <CardContent>
+          <form onSubmit={handleSubmit} className="space-y-4">
+            <div className="space-y-2">
+              <Label htmlFor="password">Password</Label>
+              <Input
+                id="password"
+                type="password"
+                placeholder="Enter admin password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                disabled={isSubmitting}
+                data-testid="admin-password-input"
+              />
+              {error && <p className="text-sm text-destructive">{error}</p>}
+            </div>
+            <Button
+              type="submit"
+              className="w-full"
+              disabled={isSubmitting || !password}
+              data-testid="admin-login-button"
+            >
+              {isSubmitting ? (
+                <>
+                  <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                  Verifying...
+                </>
+              ) : (
+                "Access Admin Panel"
+              )}
+            </Button>
+          </form>
+        </CardContent>
+      </Card>
+    </div>
+  );
+}
 
 function SectionHeader({ title }: { title: string }) {
   return <h3 className="text-lg font-bold font-display text-foreground border-b border-border pb-2 mb-4">{title}</h3>;
@@ -259,9 +327,22 @@ function WhitepaperContentEditor() {
 }
 
 export default function Admin() {
+  const { isAuthenticated, isLoading: isAuthLoading, logout } = useAdminAuth();
   const { data: config, isLoading: isLoadingConfig } = useTokenConfig();
   const { data: purchases = [], isLoading: isLoadingPurchases } = usePurchases();
   const updateConfig = useUpdateTokenConfig();
+
+  if (isAuthLoading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <Loader2 className="w-8 h-8 animate-spin text-primary" />
+      </div>
+    );
+  }
+
+  if (!isAuthenticated) {
+    return <AdminLoginForm />;
+  }
 
   const form = useForm<TokenFormValues>({
     resolver: zodResolver(tokenFormSchema),
@@ -331,6 +412,22 @@ export default function Admin() {
             </div>
           </CardContent>
         </Card>
+      </div>
+
+      <div className="flex justify-between items-center mb-8 mt-8">
+        <div>
+          <h1 className="text-3xl font-bold font-display text-foreground">Admin Controls</h1>
+          <p className="text-muted-foreground text-sm mt-1">Manage token configuration and page content</p>
+        </div>
+        <Button
+          variant="outline"
+          onClick={logout}
+          className="border-destructive/20 hover:bg-destructive/5 text-destructive"
+          data-testid="admin-logout-button"
+        >
+          <LogOut className="w-4 h-4 mr-2" />
+          Logout
+        </Button>
       </div>
 
       <Tabs defaultValue="token" className="space-y-6">

@@ -21,7 +21,6 @@ export function Navbar() {
     { name: "Home", href: "/" },
     { name: "Token Sale", href: "/sale" },
     { name: "Policies", href: "#" },
-    { name: "Admin", href: "/admin" },
   ];
 
   return (
