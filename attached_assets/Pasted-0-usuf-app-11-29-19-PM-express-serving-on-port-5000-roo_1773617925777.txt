@@ -1,0 +1,53 @@
+0|usuf-app | 11:29:19 PM [express] serving on port 5000
+
+/root/.pm2/logs/usuf-app-error.log last 50 lines:
+0|usuf-app |   code: 'EADDRINUSE',
+0|usuf-app |   errno: -98,
+0|usuf-app |   syscall: 'listen',
+0|usuf-app |   address: '0.0.0.0',
+0|usuf-app |   port: 5001
+0|usuf-app | }
+0|usuf-app | Error: listen EADDRINUSE: address already in use 0.0.0.0:5001
+0|usuf-app |     at Server.setupListenHandle [as _listen2] (node:net:1908:16)
+0|usuf-app |     at listenInCluster (node:net:1965:12)
+0|usuf-app |     at doListen (node:net:2139:7)
+0|usuf-app |     at process.processTicksAndRejections (node:internal/process/task_queues:83:21) {
+0|usuf-app |   code: 'EADDRINUSE',
+0|usuf-app |   errno: -98,
+0|usuf-app |   syscall: 'listen',
+0|usuf-app |   address: '0.0.0.0',
+0|usuf-app |   port: 5001
+0|usuf-app | }
+0|usuf-app | Error: listen EADDRINUSE: address already in use 0.0.0.0:5001
+0|usuf-app |     at Server.setupListenHandle [as _listen2] (node:net:1908:16)
+0|usuf-app |     at listenInCluster (node:net:1965:12)
+0|usuf-app |     at doListen (node:net:2139:7)
+0|usuf-app |     at process.processTicksAndRejections (node:internal/process/task_queues:83:21) {
+0|usuf-app |   code: 'EADDRINUSE',
+0|usuf-app |   errno: -98,
+0|usuf-app |   syscall: 'listen',
+0|usuf-app |   address: '0.0.0.0',
+0|usuf-app |   port: 5001
+0|usuf-app | }
+0|usuf-app | Error: listen EADDRINUSE: address already in use 0.0.0.0:5001
+0|usuf-app |     at Server.setupListenHandle [as _listen2] (node:net:1908:16)
+0|usuf-app |     at listenInCluster (node:net:1965:12)
+0|usuf-app |     at doListen (node:net:2139:7)
+0|usuf-app |     at process.processTicksAndRejections (node:internal/process/task_queues:83:21) {
+0|usuf-app |   code: 'EADDRINUSE',
+0|usuf-app |   errno: -98,
+0|usuf-app |   syscall: 'listen',
+0|usuf-app |   address: '0.0.0.0',
+0|usuf-app |   port: 5001
+0|usuf-app | }
+0|usuf-app | Error: listen EADDRINUSE: address already in use 0.0.0.0:5001
+0|usuf-app |     at Server.setupListenHandle [as _listen2] (node:net:1908:16)
+0|usuf-app |     at listenInCluster (node:net:1965:12)
+0|usuf-app |     at doListen (node:net:2139:7)
+0|usuf-app |     at process.processTicksAndRejections (node:internal/process/task_queues:83:21) {
+0|usuf-app |   code: 'EADDRINUSE',
+0|usuf-app |   errno: -98,
+0|usuf-app |   syscall: 'listen',
+0|usuf-app |   address: '0.0.0.0',
+0|usuf-app |   port: 5001
+0|usuf-app | }
