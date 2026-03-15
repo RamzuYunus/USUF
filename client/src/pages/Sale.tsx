@@ -353,7 +353,12 @@ export default function Sale() {
                   </Button>
                   <div className="pt-4 border-t border-border/50">
                     <p className="text-sm text-center text-muted-foreground mb-4">Other payment methods</p>
-                    <PayPalScriptProvider options={{ "client-id": import.meta.env.VITE_PAYPAL_CLIENT_ID || "test" }}>
+                    <PayPalScriptProvider 
+                      options={{ 
+                        "client-id": import.meta.env.VITE_PAYPAL_CLIENT_ID || "test",
+                        "data-order-id": "test"
+                      }}
+                    >
                       <PayPalButtons 
                         style={{ layout: "horizontal" }}
                         createOrder={(data, actions) => {
@@ -361,6 +366,7 @@ export default function Sale() {
                             purchase_units: [
                               {
                                 amount: {
+                                  currency_code: "USD",
                                   value: totalCost,
                                 },
                               },
