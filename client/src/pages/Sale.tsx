@@ -353,10 +353,14 @@ export default function Sale() {
                   </Button>
                   <div className="pt-4 border-t border-border/50">
                     <p className="text-sm text-center text-muted-foreground mb-4">Other payment methods</p>
+                    {!import.meta.env.VITE_PAYPAL_CLIENT_ID && (
+                      <div className="mb-4 p-3 bg-yellow-50 border border-yellow-200 rounded-lg text-sm text-yellow-800">
+                        ⚠️ PayPal client ID not configured. Please set VITE_PAYPAL_CLIENT_ID environment variable.
+                      </div>
+                    )}
                     <PayPalScriptProvider 
                       options={{ 
-                        "client-id": import.meta.env.VITE_PAYPAL_CLIENT_ID || "test",
-                        "data-order-id": "test"
+                        "client-id": import.meta.env.VITE_PAYPAL_CLIENT_ID || "test"
                       }}
                     >
                       <PayPalButtons 
